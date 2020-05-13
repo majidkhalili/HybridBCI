@@ -12,7 +12,7 @@ classdef Device_LPTport < Device
             if nargin < 1
                 parallelPort = '3ff8';
             end
-            %config_io;
+            config_io;
             obj.parallelPort = parallelPort;
         end
         

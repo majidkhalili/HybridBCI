@@ -5,7 +5,7 @@ HybridBCI is a HCI toolbox used for comunication with ALS patients in latest sta
 HybridBCI is implemented in Matalb based on object-oriented programming (OOP) principles.It can be easily extend for any HCI application and can easily be modified and extended by users.
 
 # Copyright 
-HybridBCI is OpenSource and can be used and extended for reasrech and personal applications for patients. No commercial application is allowed.
+HybridBCI is OpenSource and can be used and extended for research and personal applications for patients. No commercial application is allowed.
 
 # Refrence Manul
 The details of the software design and structure of the code is reported [Paper].
