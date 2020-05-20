@@ -5,7 +5,7 @@
 > HCI - BCI - EEG - NIRS
 
 
-# Table of Contents (Optional)
+# Table of Contents
 
 - [Documentation](#Documentation)
 - [SystemDesign](#SystemDesign)
@@ -30,7 +30,7 @@ Detailed documentation on the software design, implementation and usage of the c
 ---
 
 ## Prerequisites
-The main GUI interface of the HybridBCI is designed in <a href="https://www.mathworks.com/products/matlab/app-designer.html" >App Designer</a>, which is still being development in Matlab, so try to use latest version of the Matlab for maximum compatibility. Minmum requirment would be `Matlab R2018a`.
+The main GUI interface of the HybridBCI is designed in <a href="https://www.mathworks.com/products/matlab/app-designer.html" >App Designer</a>, which is still under development in Matlab, so try to use latest version of the Matlab for maximum compatibility. Minimum requirment would be `Matlab R2018a`.
 
 Depending on which part of the code you are using different libraries are required. 
 
@@ -48,12 +48,12 @@ Depending on which part of the code you are using different libraries are requir
 ---
 
 ## Installation
-  HybridBCI needs administrative privlagaes to creast folders for saving log files and storing recorded data and created models. Run Matlab as administrator and navigate to the root folder of the HybridBCI and:
+  HybridBCI needs administrative privileges to creat folders for saving log files and storing recorded data and created models. Run Matlab as administrator and navigate to the root folder of the HybridBCI and:
 
   ```shell
     HybridBCI
   ```
-  For testing, you can use the sampleSubject and set feedback as Simulation.
+  For testing, you can use the sampleSubject data and set feedback as Simulation.
 
 ---
 
