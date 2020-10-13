@@ -2,7 +2,7 @@ function [featuresValues, featuresLabels]=CLISLAB_EEG_Online_ExtractFeatures(thi
 %changed by wu on 2019.05.14  function name 
 % thinkingData      =   struct containing the signals from which extract the features. it can contain 3 further struct: eeg, emg, eog
 % fs                =   sampling rate
-% selectedFeatures      =   cell containing the chain of caracter names of the feature functions to be calculated
+% selectedFeatures  =   cell containing the chain of caracter names of the feature functions to be calculated
 
 %% Applying the feature functions
 featuresValues=[];
