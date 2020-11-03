@@ -169,7 +169,7 @@ Depending on which part of the code you are using different libraries are requir
     > Khalili-Ardali et al. (2020)
 
   - APA 7:
-    > Khalili-Ardali1, M., Martínez-Cerveró, J., Tonin, A., Jaramillo- Gonzalez, A., Wu, S., Zanella, G., Corniani, G., Montoya-Soderberg, A., Birbaumer, N., Chaudhary, U. (2020). A General-Purpose Framework for a Hybrid EEG-NIRS-BCI. <em>SoftwareX</em> [In Revision].
+    > Khalili-Ardali, M., Martínez-Cerveró, J., Tonin, A., Jaramillo- Gonzalez, A., Wu, S., Zanella, G., Corniani, G., Montoya-Soderberg, A., Birbaumer, N., Chaudhary, U. (2020). A General-Purpose Framework for a Hybrid EEG-NIRS-BCI. <em>SoftwareX</em> [In Revision].
 
   - APA 6:
     > Khalili-Ardali1, M., Martínez-Cerveró, J., Tonin, A., Jaramillo- Gonzalez, A., Wu, S., Zanella, G., Corniani, G., ... Chaudhary, U. (2020). A General-Purpose Framework for a Hybrid EEG-NIRS-BCI. <em>SoftwareX</em> [In Revision].
@@ -179,7 +179,7 @@ Depending on which part of the code you are using different libraries are requir
 ## License
   [![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org)
 
-  > Copyright (c) 2020 Majid Khalili-Ardali et al. (2020) from CLISLAB <br>
+  > Copyright (c) 2020 Khalili-Ardali, M., Martínez-Cerveró, J., Tonin, A., Jaramillo- Gonzalez, A., Wu, S., Zanella, G., Corniani, G., Montoya-Soderberg, A., Birbaumer, N., Chaudhary, U. from CLISLAB <br>
   Permission is hereby granted, free of charge, to any person
   obtaining a copy of this software and associated documentation
   files (the "Software"), to deal in the Software without
