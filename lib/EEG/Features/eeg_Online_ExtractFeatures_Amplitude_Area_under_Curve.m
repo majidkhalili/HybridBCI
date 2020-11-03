@@ -1,5 +1,5 @@
 function [tempFeature] = eeg_Online_ExtractFeatures_Amplitude_Area_under_Curve(Data, fs, passbandInterval)
-% EEG_ONLINE_EXTRACTFEATURES_AMPLITUDE_AREA_UNDER_CURVE Calculates are by numerical integration.
+% EEG_ONLINE_EXTRACTFEATURES_AMPLITUDE_AREA_UNDER_CURVE Calculates area by numerical integration.
 % INPUTS:
 %   Data              : Channels X Timepoints X Trials; Separated for eeg, emg, eog
 %   fs                : Sampling rate in Hz
