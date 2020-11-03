@@ -65,15 +65,15 @@ Depending on which part of the code you are using different libraries are requir
 
   ```shell
   function [features] = NewEEGFeatureFunction(Data, fs,   passbandInterval)
-  % Data                    = channels X timepoints X trials; Separated for eeg, emg, eog
-  % fs                      = sampling rate in Hz
-  % passbandInterval        = The boundaries for the bandpass filters (Delta, Theta, Alpha, ...)
-  % features                = features extracted from the signal
-  % feature.featuresLabels  = string;
-  % feature.features        = trials X features;
+  % NEWEEGFEATUREFUNCTION Calculates the correspondant feature.
+  % INPUTS:
+  %   Data              : Channels X Timepoints X Trials; Separated for eeg, emg, eog
+  %   fs                : Sampling rate in Hz
+  %   passbandInterval  : Boundaries for the bandpass filters (Delta, Theta, Alpha, ...)
+  % OUTPUTS:
+  %   features  : Value of the correspondant feature.
 
-
-  % extract features
+    % extract features
 
   end
   ```
@@ -86,12 +86,12 @@ Depending on which part of the code you are using different libraries are requir
 
   ```shell
   function feature = NewNIRSFeatureFunction(Data)
-  % Data                   = channels X timepoints X trials; Seprated for HbO, HbR, and HbT 
-  % features               = features extracted from the signal
-  % feature.featuresLabels = string list;
-  % feature.features       = trials X features;
+  % NEWNIRSFEATUREFUNCTION Calculates the correspondant feature.
+  %   Data              : Channels X Timepoints X Trials; Seprated for HbO, HbR, and HbT 
+  % OUTPUTS:
+  %   features  : Value of the correspondant feature.
 
-  % extract features
+    % extract features
 
   end
   ```
