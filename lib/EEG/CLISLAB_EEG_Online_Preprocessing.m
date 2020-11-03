@@ -1,4 +1,22 @@
 function [preprocessedBaselineData,preprocessedThinkingData] = CLISLAB_EEG_Online_Preprocessing(baselineData, thinkingData, channelsLabels, fs, filter_type, interprocess, selectSource, frequencyBands)
+% CLISLAB_EEG_ONLINE_PREPROCESSING Calls to the correspondant EEG preprocessing functions.
+% INPUTS:
+%   baselineData    :   Cell array containing the baseline data. [Channels X Timepoints X Trials].
+%   thinkingData    :   Struct with the thinking data. The struct is divided in 3 structs: EEG, EMG and EOG. Some of these structs 
+%                       could not appear depending on user selection.
+%   channelsLabels  :   Cell array containing the channel labels.
+%   fs              :   Sampling rate value.
+%   filter_type     :   String with the name of the filter to be applied. Selected by user.
+%   interprocess    :   Cell array containing the name of the processing functions to be applied. Slelected by user.
+%   selectSource    :   Logical array with the selected sources. [EEG EMG EOG].
+%   frequencyBands  :   Struct with band's boundaries and a logical which indicates if the band has been selected by the user or not.
+%
+% OUTPUTS:
+%   preprocessedBaselineData : Struct containing the processed baseline data. The struct is divided in 3 structs: EEG, EMG and EOG. Some of these structs 
+%                              could not appear depending on user selection.
+%   preprocessedThinkingData : Struct containing the processed thinking data. The struct is divided in 3 structs: EEG, EMG and EOG. Some of these structs 
+%                              could not appear depending on user selection.
+
 %% Conversion factor to obtain microVolts
 % Added by AJG, 07.10.2019
 % % +/- 410mV range in 24 bits resolution ADC on the Vamp
@@ -74,14 +92,9 @@ for i=1:nch
     end
 end
 
-
 %% Filtering eeg, eog and emg signals
 
 [eeg_thinking, eeg_baseline, eog_thinking, eog_baseline, emg_thinking, emg_baseline] = feval(filter_type, eeg_thinking, eeg_baseline, eog_thinking, eog_baseline, emg_thinking, emg_baseline, frequencyBands, fs);
-
-% plots(eeg_thinking, eeg_baseline, eog_thinking, eog_baseline, emg_thinking, emg_baseline)
-
-
 
 %% Cropping eeg, eog and emg signals
 %corrected by wu
@@ -128,7 +141,6 @@ else
     emg_thinking.filtered   =   emg_thinking.filtered(:, wn:end-wn, :);
     emg_baseline.filtered   =   emg_baseline.filtered(:, wn:end-wn, :);
 end
-% plots(eeg_thinking, eeg_baseline, eog_thinking, eog_baseline, emg_thinking, emg_baseline)
 
 %% interprocess Functions
 if ~isempty(interprocess)
@@ -137,12 +149,6 @@ if ~isempty(interprocess)
         [eeg_thinking, eeg_baseline, eog_thinking, eog_baseline, emg_thinking, emg_baseline] = feval(char(interprocess{k}),eeg_thinking, eeg_baseline, eog_thinking, eog_baseline, emg_thinking, emg_baseline, selectSource);
     end
 end
-
-%% Amplitude Correction
-
-%[eeg_thinking, eeg_baseline, eog_thinking, eog_baseline, emg_thinking, emg_baseline] = feval(amplitude_correction, eeg_thinking, eeg_baseline, eog_thinking, eog_baseline, emg_thinking, emg_baseline);
-
-% plots(eeg_thinking, eeg_baseline, eog_thinking, eog_baseline, emg_thinking, emg_baseline);
 
 %% Storing desired Variables
 
@@ -216,84 +222,24 @@ if isfield(preprocessedThinkingData,'eeg')
     if ~frequencyBands(1).used
         preprocessedBaselineData.eeg=rmfield(preprocessedBaselineData.eeg,'wideband');
         preprocessedThinkingData.eeg=rmfield(preprocessedThinkingData.eeg,'wideband');
-        %     if isfield(thinkithinkingData.eeg, 'wideband')
-        %         thinkingData = rmfield(thinkingData.eeg, 'wideband');
-        %     end
     end
     if ~frequencyBands(2).used
-        
         preprocessedBaselineData.eeg=rmfield(preprocessedBaselineData.eeg,'delta');
         preprocessedThinkingData.eeg=rmfield(preprocessedThinkingData.eeg,'delta');
-        
-        %     if isfield(thinkithinkingData.eeg, 'delta')
-        %         thinkingData = rmfield(thinkingData.eeg, 'delta');
-        %     end
     end
     if ~frequencyBands(3).used
         preprocessedBaselineData.eeg=rmfield(preprocessedBaselineData.eeg,'theta');
         preprocessedThinkingData.eeg=rmfield(preprocessedThinkingData.eeg,'theta');
-        %     if isfield(thinkithinkingData.eeg, 'theta')
-        %         thinkingData = rmfield(thinkingData.eeg, 'theta');
-        %     end
     end
     if ~frequencyBands(4).used
         preprocessedBaselineData.eeg=rmfield(preprocessedBaselineData.eeg,'alpha');
         preprocessedThinkingData.eeg=rmfield(preprocessedThinkingData.eeg,'alpha');
-        %     if isfield(thinkithinkingData.eeg, 'alpha')
-        %         thinkingData = rmfield(thinkingData.eeg, 'alpha');
-        %     end
     end
     if ~frequencyBands(5).used
         preprocessedBaselineData.eeg=rmfield(preprocessedBaselineData.eeg,'beta');
         preprocessedThinkingData.eeg=rmfield(preprocessedThinkingData.eeg,'beta');
-        %     if isfield(thinkithinkingData.eeg, 'beta')
-        %         thinkingData = rmfield(thinkingData.eeg, 'beta');
-        %     end
     end
     
 end
 
 end
-
-
-
-%% Ploting Function
-function plots(eeg_thinking, eeg_baseline, eog_thinking, eog_baseline, emg_thinking, emg_baseline)
-
-for Tr=4%:size(eeg_thinking.wideband,3)
-    %     figure, %Thinking raw data
-    %     subplot(3,1,1),plot(squeeze(eeg_thinking.raw(:,:,Tr))'),title('eeg thinking raw');
-    %     subplot(3,1,2),plot(squeeze(eog_thinking.raw(:,:,Tr))'),title('eog thinking raw');
-    %     subplot(3,1,3),plot(squeeze(emg_thinking.raw(:,:,Tr))'),title('emg thinking raw');
-    %
-    %     figure, %Baseline raw data
-    %     subplot(3,1,1),plot(squeeze(eeg_baseline.raw(:,:,Tr))'),title('eeg baseline raw');
-    %     subplot(3,1,2),plot(squeeze(eog_baseline.raw(:,:,Tr))'),title('eog baseline raw');
-    %     subplot(3,1,3),plot(squeeze(emg_baseline.raw(:,:,Tr))'),title('emg baseline raw');
-    
-    figure, %EEG Thinking in filtered bands
-    subplot(5,2,1),plot(squeeze(eeg_thinking.wideband(:,:,Tr))'),title('eeg thinking wideband');
-    subplot(5,2,3),plot(squeeze(eeg_thinking.delta(:,:,Tr))'),title('eeg thinking delta');
-    subplot(5,2,5),plot(squeeze(eeg_thinking.theta(:,:,Tr))'),title('eeg thinking theta');
-    subplot(5,2,7),plot(squeeze(eeg_thinking.alpha(:,:,Tr))'),title('eeg thinking alpha');
-    subplot(5,2,9),plot(squeeze(eeg_thinking.beta(:,:,Tr))'),title('eeg thinking beta');
-    
-    %     figure, %EEG Baseline in filtered bands
-    subplot(5,2,2),plot(squeeze(eeg_baseline.wideband(:,:,Tr))'),title('eeg baseline wideband');
-    subplot(5,2,4),plot(squeeze(eeg_baseline.delta(:,:,Tr))'),title('eeg baseline delta');
-    subplot(5,2,6),plot(squeeze(eeg_baseline.theta(:,:,Tr))'),title('eeg baseline theta');
-    subplot(5,2,8),plot(squeeze(eeg_baseline.alpha(:,:,Tr))'),title('eeg baseline alpha');
-    subplot(5,2,10),plot(squeeze(eeg_baseline.beta(:,:,Tr))'),title('eeg baseline beta');
-    
-    figure, %EOG Thinking and Baseline in wideband
-    subplot(2,2,1),plot(squeeze(eog_thinking.filtered(:,:,Tr))'),title('eog thinking filtered');
-    subplot(2,2,2),plot(squeeze(eog_baseline.filtered(:,:,Tr))'),title('eog baseline filtered');
-    
-    %     figure, %EMG Thinking and Baseline in wideband
-    subplot(2,2,3),plot(squeeze(emg_thinking.filtered(:,:,Tr))'),title('emg thinking filtered');
-    subplot(2,2,4),plot(squeeze(emg_baseline.filtered(:,:,Tr))'),title('emg baseline filtered');
-    
-end
-
-end
-
