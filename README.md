@@ -65,12 +65,12 @@ Depending on which part of the code you are using different libraries are requir
 
   ```shell
   function [features] = NewEEGFeatureFunction(Data, fs,   passbandInterval)
-  % Data              = channels X timepoints X trials; Separated for eeg, emg, eog
-  % fs                = sampling rate in Hz
-  % passbandInterval  = The boundaries for the bandpass filters (Delta, Theta, Alpha, ...)
-  % features          = features extracted from the signal
-  % feature.featuresLabels = string;
-  % feature.features       = trials X features;
+  % Data                    = channels X timepoints X trials; Separated for eeg, emg, eog
+  % fs                      = sampling rate in Hz
+  % passbandInterval        = The boundaries for the bandpass filters (Delta, Theta, Alpha, ...)
+  % features                = features extracted from the signal
+  % feature.featuresLabels  = string;
+  % feature.features        = trials X features;
 
 
   % extract features
