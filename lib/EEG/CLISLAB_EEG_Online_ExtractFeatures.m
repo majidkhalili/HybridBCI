@@ -1,14 +1,14 @@
 function [featuresValues, featuresLabels]=CLISLAB_EEG_Online_ExtractFeatures(thinkingData, fs, selectedFeatures)
 % CLISLAB_EEG_ONLINE_EXTRACTFEATURES Calls to the correspondant EEG Features functions.
 % INPUTS:
-%   thinkingData    :   Struct containing the signals from which extract the features. The struct is divided in 3 structs: EEG, EMG and EOG. Some of these structs 
+%   thinkingData    :   Struct with the signals from which extract the features. The struct is divided in 3 structs: EEG, EMG and EOG. Some of these structs 
 %                       could not appear depending on user selection.
-%   fs              :   The sampling rate value.
-%   selectedFeatures:   A cell array containing the names of the features selected by the user.
+%   fs              :   Sampling rate value.
+%   selectedFeatures:   Cell array with the names of the features selected by the user.
 %
 % OUTPUTS:
-%   featuresValues  :   A cell array containing [Trials X Features].
-%   featuresLabels  :   A cell array containing the label of each row in 'featuresValues' (Features name, band and channel).
+%   featuresValues  :   Cell array with the calculated values. [Trials X Features].
+%   featuresLabels  :   Cell array with the label of each row in 'featuresValues' (Feature name, band and channel).
 
 %% Applying the feature functions
 featuresValues=[];
