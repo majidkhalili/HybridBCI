@@ -1,21 +1,39 @@
 function [eeg_thinking, eeg_baseline, eog_thinking, eog_baseline, emg_thinking, emg_baseline] = CLISLAB_EEG_FIR_fir1_filter(eeg_thinking, eeg_baseline, eog_thinking, eog_baseline, emg_thinking, emg_baseline, frequencyBands, fs)
+% CLISLAB_EEG_FIR_FIR1_FILTER Calculates the filtered signal using FIR filter with Parks-McClellan optimal FIR filter order estimation.
+% INPUTS:
+%   eeg_thinking    :   Struct with the EEG thinking data. [Channels X Timepoints X Trials].
+%   eeg_baseline    :   Struct with the EEG baseline data. [Channels X Timepoints X Trials].
+%   eog_thinking    :   Struct with the EOG thinking data. [Channels X Timepoints X Trials].
+%   eog_baseline    :   Struct with the EOG baseline data. [Channels X Timepoints X Trials].
+%   emg_thinking    :   Struct with the EMG thinking data. [Channels X Timepoints X Trials].
+%   emg_baseline    :   Struct with the EMG baseline data. [Channels X Timepoints X Trials].
+%   frequencyBands  :   Struct with band's boundaries and a logical which indicates if the band has been selected by the user or not.
+%   fs              :   Sampling rate value in Hz.
+% OUTPUTS:
+%   eeg_thinking    :   Struct with the filtered EEG thinking data divided in an array for raw data and an array for each selected band. 
+%                       The amount of arrays would depend on user selection. Each arra has a shape as [Channels X Timepoints X Trials].
+%   eeg_baseline    :   Struct with the filtered EEG baseline data divided in an array for raw data and an array for each selected band. 
+%                       The amount of arrays would depend on user selection. Each arra has a shape as [Channels X Timepoints X Trials].
+%   eog_thinking    :   Struct with the filtered EOG thinking data divided in an array for raw data and an array for each selected band. 
+%                       The amount of arrays would depend on user selection. Each arra has a shape as [Channels X Timepoints X Trials].
+%   eog_baseline    :   Struct with the filtered EOG baseline data divided in an array for raw data and an array for each selected band. 
+%                       The amount of arrays would depend on user selection. Each arra has a shape as [Channels X Timepoints X Trials].
+%   emg_thinking    :   Struct with the filtered EMG thinking data divided in an array for raw data and an array for each selected band. 
+%                       The amount of arrays would depend on user selection. Each arra has a shape as [Channels X Timepoints X Trials].
+%   emg_baseline    :   Struct with the filtered EMG baseline data divided in an array for raw data and an array for each selected band. 
+%                       The amount of arrays would depend on user selection. Each arra has a shape as [Channels X Timepoints X Trials].
+
 %% Filtering EEG with FIR with Parks-McClellan optimal FIR filter order estimation
 %Filtering Parameters
-rp = 3;           % Passband ripple
-rs = 40;          % Stopband ripple
-gain = [1 0];     % Desired gaining amplitudes
-% dev = [(10^(rp/20)-1)/(10^(rp/20)+1)  10^(-rs/20)];  %Maximum allowable deviation or ripples between the frequency response and the desired amplitude of the output filter for each band
-dev = [0.05 0.01];  %Maximum allowable deviation or ripples between the frequency response and the desired amplitude of the output filter for each band
+rp      = 3;            % Passband ripple
+rs      = 40;           % Stopband ripple
+gain    = [1 0];        % Desired gaining amplitudes
+dev     = [0.05 0.01];  % Maximum allowable deviation or ripples between the frequency response and the desired amplitude of the output filter for each band
 
 %% Calculationg Filter Order with the firpmord function
 filter_order = []; fo = []; ao = [];  w = [];
 
 % Calculating the filter order for the EEG thinking length
-% [filter_order.eeg.thinking.wideband, fo.eeg.thinking.wideband, ao.eeg.thinking.wideband, w.eeg.thinking.wideband] = firpmord([0.5 30],gain,dev,fs);
-% [filter_order.eeg.thinking.delta, fo.eeg.thinking.delta, ao.eeg.thinking.delta, w.eeg.thinking.delta] = firpmord([1 4],gain,dev,fs);
-% [filter_order.eeg.thinking.theta, fo.eeg.thinking.theta, ao.eeg.thinking.theta, w.eeg.thinking.theta] = firpmord([4 7],gain,dev,fs);
-% [filter_order.eeg.thinking.alpha, fo.eeg.thinking.alpha, ao.eeg.thinking.alpha, w.eeg.thinking.alpha] = firpmord([7 15],gain,dev,fs);
-% [filter_order.eeg.thinking.beta, fo.eeg.thinking.beta, ao.eeg.thinking.beta, w.eeg.thinking.beta] = firpmord([15 30],gain,dev,fs);
 [filter_order.eeg.thinking.wideband, fo.eeg.thinking.wideband, ao.eeg.thinking.wideband, w.eeg.thinking.wideband] =     firpmord([frequencyBands(1).low frequencyBands(1).high],gain,dev,fs);
 [filter_order.eeg.thinking.delta, fo.eeg.thinking.delta, ao.eeg.thinking.delta, w.eeg.thinking.delta] =                 firpmord([frequencyBands(2).low frequencyBands(2).high],gain,dev,fs);
 [filter_order.eeg.thinking.theta, fo.eeg.thinking.theta, ao.eeg.thinking.theta, w.eeg.thinking.theta] =                 firpmord([frequencyBands(3).low frequencyBands(3).high],gain,dev,fs);
@@ -23,11 +41,6 @@ filter_order = []; fo = []; ao = [];  w = [];
 [filter_order.eeg.thinking.beta, fo.eeg.thinking.beta, ao.eeg.thinking.beta, w.eeg.thinking.beta] =                     firpmord([frequencyBands(5).low frequencyBands(5).high],gain,dev,fs);
 
 % Calculating the filter order for the EEG baseline length
-% [filter_order.eeg.baseline.wideband, fo.eeg.baseline.wideband, ao.eeg.baseline.wideband, w.eeg.baseline.wideband] = firpmord([0.5 30],gain,dev,fs);
-% [filter_order.eeg.baseline.delta, fo.eeg.baseline.delta, ao.eeg.baseline.delta, w.eeg.baseline.delta] = firpmord([1 4],gain,dev,fs);
-% [filter_order.eeg.baseline.theta, fo.eeg.baseline.theta, ao.eeg.baseline.theta, w.eeg.baseline.theta] = firpmord([4 7],gain,dev,fs);
-% [filter_order.eeg.baseline.alpha, fo.eeg.baseline.alpha, ao.eeg.baseline.alpha, w.eeg.baseline.alpha] = firpmord([7 15],gain,dev,fs);
-% [filter_order.eeg.baseline.beta, fo.eeg.baseline.beta, ao.eeg.baseline.beta, w.eeg.baseline.beta] = firpmord([15 30],gain,dev,fs);
 [filter_order.eeg.baseline.wideband, fo.eeg.baseline.wideband, ao.eeg.baseline.wideband, w.eeg.baseline.wideband] =     firpmord([frequencyBands(1).low frequencyBands(1).high],gain,dev,fs);
 [filter_order.eeg.baseline.delta, fo.eeg.baseline.delta, ao.eeg.baseline.delta, w.eeg.baseline.delta] =                 firpmord([frequencyBands(2).low frequencyBands(2).high],gain,dev,fs);
 [filter_order.eeg.baseline.theta, fo.eeg.baseline.theta, ao.eeg.baseline.theta, w.eeg.baseline.theta] =                 firpmord([frequencyBands(3).low frequencyBands(3).high],gain,dev,fs);
@@ -54,11 +67,6 @@ b.eeg.thinking.delta =      fir1(filter_order.eeg.thinking.delta,   [frequencyBa
 b.eeg.thinking.theta =      fir1(filter_order.eeg.thinking.theta,   [frequencyBands(3).low frequencyBands(3).high]/(fs/2),'bandpass',gausswin(filter_order.eeg.thinking.theta+1));
 b.eeg.thinking.alpha =      fir1(filter_order.eeg.thinking.alpha,   [frequencyBands(4).low frequencyBands(4).high]/(fs/2),'bandpass',gausswin(filter_order.eeg.thinking.alpha+1));
 b.eeg.thinking.beta =       fir1(filter_order.eeg.thinking.beta,    [frequencyBands(5).low frequencyBands(5).high]/(fs/2),'bandpass',gausswin(filter_order.eeg.thinking.beta+1));
-% freqz(b.eeg.thinking.wideband,1,1024,fs)
-% freqz(b.eeg.thinking.delta,1,1024,fs)
-% freqz(b.eeg.thinking.delta,1,1024,fs)
-% freqz(b.eeg.thinking.alpha,1,1024,fs)
-% freqz(b.eeg.thinking.beta,1,1024,fs)
 
 % Calculating the filters for EEG baseline length
 b.eeg.baseline.wideband =   fir1(filter_order.eeg.baseline.wideband,[frequencyBands(1).low frequencyBands(1).high]/(fs/2),'bandpass',gausswin(filter_order.eeg.baseline.wideband+1));
@@ -66,11 +74,6 @@ b.eeg.baseline.delta =      fir1(filter_order.eeg.baseline.delta,   [frequencyBa
 b.eeg.baseline.theta =      fir1(filter_order.eeg.baseline.theta,   [frequencyBands(3).low frequencyBands(3).high]/(fs/2),'bandpass',gausswin(filter_order.eeg.baseline.theta+1));
 b.eeg.baseline.alpha =      fir1(filter_order.eeg.baseline.alpha,   [frequencyBands(4).low frequencyBands(4).high]/(fs/2),'bandpass',gausswin(filter_order.eeg.baseline.alpha+1));
 b.eeg.baseline.beta =       fir1(filter_order.eeg.baseline.beta,    [frequencyBands(5).low frequencyBands(5).high]/(fs/2),'bandpass',gausswin(filter_order.eeg.baseline.beta+1));
-% freqz(b.eeg.baseline.wideband,1,1024,fs)
-% freqz(b.eeg.baseline.delta,1,1024,fs)
-% freqz(b.eeg.baseline.delta,1,1024,fs)
-% freqz(b.eeg.baseline.alpha,1,1024,fs)
-% freqz(b.eeg.baseline.beta,1,1024,fs)
 
 %% Calculating the Filter Coefficients for EOG with the fir1 function
 b.eog.thinking.filtered =   fir1(filter_order.eog.thinking.filtered,[0.5 50]/(fs/2),'bandpass',gausswin(filter_order.eog.thinking.filtered+1));
