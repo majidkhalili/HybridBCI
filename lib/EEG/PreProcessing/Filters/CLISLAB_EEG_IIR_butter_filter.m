@@ -1,5 +1,28 @@
 function [eeg_thinking, eeg_baseline, eog_thinking, eog_baseline, emg_thinking, emg_baseline] = CLISLAB_EEG_IIR_butter_filter(eeg_thinking, eeg_baseline, eog_thinking, eog_baseline, emg_thinking, emg_baseline, frequencyBands, fs)
-%% Filtering EEG with IIR Butterwort (using highpass and lowpass)
+% CLISLAB_EEG_FIR_FIR1_FILTER Calculates the filtered signal using IIR Butterworth filter.
+% INPUTS:
+%   eeg_thinking    :   Struct with the EEG thinking data. [Channels X Timepoints X Trials].
+%   eeg_baseline    :   Struct with the EEG baseline data. [Channels X Timepoints X Trials].
+%   eog_thinking    :   Struct with the EOG thinking data. [Channels X Timepoints X Trials].
+%   eog_baseline    :   Struct with the EOG baseline data. [Channels X Timepoints X Trials].
+%   emg_thinking    :   Struct with the EMG thinking data. [Channels X Timepoints X Trials].
+%   emg_baseline    :   Struct with the EMG baseline data. [Channels X Timepoints X Trials].
+%   frequencyBands  :   Struct with band's boundaries and a logical which indicates if the band has been selected by the user or not.
+%   fs              :   Sampling rate value in Hz.
+% OUTPUTS:
+%   eeg_thinking    :   Struct with the filtered EEG thinking data divided in an array for raw data and an array for each selected band. 
+%                       The amount of arrays would depend on user selection. Each arra has a shape as [Channels X Timepoints X Trials].
+%   eeg_baseline    :   Struct with the filtered EEG baseline data divided in an array for raw data and an array for each selected band. 
+%                       The amount of arrays would depend on user selection. Each arra has a shape as [Channels X Timepoints X Trials].
+%   eog_thinking    :   Struct with the filtered EOG thinking data divided in an array for raw data and an array for each selected band. 
+%                       The amount of arrays would depend on user selection. Each arra has a shape as [Channels X Timepoints X Trials].
+%   eog_baseline    :   Struct with the filtered EOG baseline data divided in an array for raw data and an array for each selected band. 
+%                       The amount of arrays would depend on user selection. Each arra has a shape as [Channels X Timepoints X Trials].
+%   emg_thinking    :   Struct with the filtered EMG thinking data divided in an array for raw data and an array for each selected band. 
+%                       The amount of arrays would depend on user selection. Each arra has a shape as [Channels X Timepoints X Trials].
+%   emg_baseline    :   Struct with the filtered EMG baseline data divided in an array for raw data and an array for each selected band. 
+%                       The amount of arrays would depend on user selection. Each arra has a shape as [Channels X Timepoints X Trials].
+
 %Filtering Parameters
 rp = 3; % Passband ripple
 rs = 40; % Stopband ripple
@@ -60,16 +83,6 @@ a = []; b =[];
 [b.eeg.thinking.alpha.high, a.eeg.thinking.alpha.high] =        butter(filter_order.eeg.thinking.alpha.high, Wn.eeg.thinking.alpha.high, 'high');  %filter_order.eeg.thinking
 [b.eeg.thinking.beta.low, a.eeg.thinking.beta.low] =            butter(filter_order.eeg.thinking.beta.low, Wn.eeg.thinking.beta.low, 'low');       %filter_order.eeg.thinking
 [b.eeg.thinking.beta.high, a.eeg.thinking.beta.high] =          butter(filter_order.eeg.thinking.beta.high, Wn.eeg.thinking.beta.high, 'high');    %filter_order.eeg.thinking
-% figure,freqz(b.eeg.thinking.wideband.low,a.eeg.thinking.wideband.low);
-% figure,freqz(b.eeg.thinking.wideband.high,a.eeg.thinking.wideband.high);
-% figure,freqz(b.eeg.thinking.delta.low,a.eeg.thinking.delta.low);
-% figure,freqz(b.eeg.thinking.delta.high,a.eeg.thinking.delta.high);
-% figure,freqz(b.eeg.thinking.theta.low,a.eeg.thinking.theta.low);
-% figure,freqz(b.eeg.thinking.theta.high,a.eeg.thinking.theta.high);
-% figure,freqz(b.eeg.thinking.alpha.low,a.eeg.thinking.alpha.low);
-% figure,freqz(b.eeg.thinking.alpha.high,a.eeg.thinking.alpha.high);
-% figure,freqz(b.eeg.thinking.beta.low,a.eeg.thinking.beta.low);
-% figure,freqz(b.eeg.thinking.beta.high,a.eeg.thinking.beta.high);
 
 % Calculating the filter for the EEG baseline length
 [b.eeg.baseline.wideband.low, a.eeg.baseline.wideband.low] =    butter(filter_order.eeg.baseline.wideband.low, Wn.eeg.baseline.wideband.low, 'low');       %filter_order.eeg.baseline
@@ -82,16 +95,6 @@ a = []; b =[];
 [b.eeg.baseline.alpha.high, a.eeg.baseline.alpha.high] =        butter(filter_order.eeg.baseline.alpha.high, Wn.eeg.baseline.alpha.high, 'high');  %filter_order.eeg.baseline
 [b.eeg.baseline.beta.low, a.eeg.baseline.beta.low] =            butter(filter_order.eeg.baseline.beta.low, Wn.eeg.baseline.beta.low, 'low');       %filter_order.eeg.baseline
 [b.eeg.baseline.beta.high, a.eeg.baseline.beta.high] =          butter(filter_order.eeg.baseline.beta.high, Wn.eeg.baseline.beta.high, 'high');    %filter_order.eeg.baseline
-% figure,freqz(b.eeg.baseline.wideband.low,a.eeg.baseline.wideband.low);
-% figure,freqz(b.eeg.baseline.wideband.high,a.eeg.baseline.wideband.high);
-% figure,freqz(b.eeg.baseline.delta.low,a.eeg.baseline.delta.low);
-% figure,freqz(b.eeg.baseline.delta.high,a.eeg.baseline.delta.high);
-% figure,freqz(b.eeg.baseline.theta.low,a.eeg.baseline.theta.low);
-% figure,freqz(b.eeg.baseline.theta.high,a.eeg.baseline.theta.high);
-% figure,freqz(b.eeg.baseline.alpha.low,a.eeg.baseline.alpha.low);
-% figure,freqz(b.eeg.baseline.alpha.high,a.eeg.baseline.alpha.high);
-% figure,freqz(b.eeg.baseline.beta.low,a.eeg.baseline.beta.low);
-% figure,freqz(b.eeg.baseline.beta.high,a.eeg.baseline.beta.high);
 
 %% Calculating the filters for EOG
 % Calculating the IIR filter for the EOG thinking length
