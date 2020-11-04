@@ -1,15 +1,18 @@
 function [tempFeature] = eeg_Online_ExtractFeatures_Spectral_Mean(Data, fs, passbandInterval)
-
-% % Conversion factor to obtain microVolts
-% Data = 0.0488281 * Data;
+% EEG_ONLINE_EXTRACTFEATURES_SPECTRAL_MEAN Calculates the mean of the Welch's spectral density of the signal.
+% INPUTS:
+%   Data              : Channels X Timepoints X Trials; Separated for eeg, emg, eog
+%   fs                : Sampling rate in Hz
+%   passbandInterval  : Boundaries for the bandpass filters (Delta, Theta, Alpha, ...)
+% OUTPUTS:
+%   tempFeature  : Value of the correspondant feature.
 
 % Parameters for Spectral Calculation
-% timeLength      =   size(Data,2)/fs;
-windowLength	=   round(size(Data,2)/2); %Half the length of the time
+windowLength	  =   round(size(Data,2)/2); %Half the length of the time
 overlapping     =   round(size(Data,2)/4); %50% overlapping, half the length of the windows
 padding         =   5000;
 
-% Welch’s power spectral density estimate
+% Welchâ€™s power spectral density estimate
 [spectrumWelch, freqVector] = pwelch(Data, hamming(windowLength), overlapping, padding, fs);
 
 % Segmenting the Spectra to the specified Passband (by passbandInterval)
@@ -20,7 +23,5 @@ segmentSpectrumWelch  = spectrumWelch(lowerPassbandLimit:upperPassbandLimit);
 
 % Calculating the Wiener Spectra in the specified Passband (by passbandInterval)
 tempFeature = mean(segmentSpectrumWelch);
-% figure, plot(segmentSpectrumWelch,'b')
-% hold on, plot(mean(segmentSpectrumWelch),'*');
 
 end
