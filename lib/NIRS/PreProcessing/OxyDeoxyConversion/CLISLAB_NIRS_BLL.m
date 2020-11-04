@@ -164,8 +164,4 @@ convertedData.thinkingHbr = deoxy_thinking;
 od_thinking = cat(1,convertedData.thinkingHbo,convertedData.thinkingHbr);
 od_baseline = cat(1,convertedData.baselineHbo,convertedData.baselineHbr);
 
-
-
- 
-
 end
