@@ -1,5 +1,5 @@
 function [eeg_thinking, eeg_baseline, eog_thinking, eog_baseline, emg_thinking, emg_baseline] = CLISLAB_EEG_IIR_butter_filter(eeg_thinking, eeg_baseline, eog_thinking, eog_baseline, emg_thinking, emg_baseline, frequencyBands, fs)
-% CLISLAB_EEG_FIR_FIR1_FILTER Calculates the filtered signal using IIR Butterworth filter.
+% CLISLAB_EEG_IIR_BUTTER_FILTER Calculates the filtered signal using IIR Butterworth filter.
 % INPUTS:
 %   eeg_thinking    :   Struct with the EEG thinking data. [Channels X Timepoints X Trials].
 %   eeg_baseline    :   Struct with the EEG baseline data. [Channels X Timepoints X Trials].
