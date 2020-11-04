@@ -1,11 +1,11 @@
 function [tempFeature] = eeg_Online_ExtractFeatures_Range_LowerMargin(Data, fs, passbandInterval)
-% EEG_ONLINE_EXTRACTFEATURES_RANGE_LOWERMARGIN Calculates the 5th percentile
+% EEG_ONLINE_EXTRACTFEATURES_RANGE_LOWERMARGIN Calculates the 5th percentile.
 % INPUTS:
 %   Data              : Channels X Timepoints X Trials; Separated for eeg, emg, eog
 %   fs                : Sampling rate in Hz
 %   passbandInterval  : Boundaries for the bandpass filters (Delta, Theta, Alpha, ...)
 % OUTPUTS:
-%   tempFeatures  : Value of the correspondant feature.
+%   tempFeature  : Value of the correspondant feature.
 
 % % Conversion factor to obtain microVolts
 % Data = 0.0488281 * Data;
