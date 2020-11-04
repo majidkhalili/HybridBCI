@@ -11,17 +11,17 @@ function [eeg_thinking, eeg_baseline, eog_thinking, eog_baseline, emg_thinking, 
 %   fs              :   Sampling rate value in Hz.
 % OUTPUTS:
 %   eeg_thinking    :   Struct with the filtered EEG thinking data divided in an array for raw data and an array for each selected band. 
-%                       The amount of arrays would depend on user selection. Each arra has a shape as [Channels X Timepoints X Trials].
+%                       The amount of arrays would depend on user selection. Each array has a shape as [Channels X Timepoints X Trials].
 %   eeg_baseline    :   Struct with the filtered EEG baseline data divided in an array for raw data and an array for each selected band. 
-%                       The amount of arrays would depend on user selection. Each arra has a shape as [Channels X Timepoints X Trials].
+%                       The amount of arrays would depend on user selection. Each array has a shape as [Channels X Timepoints X Trials].
 %   eog_thinking    :   Struct with the filtered EOG thinking data divided in an array for raw data and an array for each selected band. 
-%                       The amount of arrays would depend on user selection. Each arra has a shape as [Channels X Timepoints X Trials].
+%                       The amount of arrays would depend on user selection. Each array has a shape as [Channels X Timepoints X Trials].
 %   eog_baseline    :   Struct with the filtered EOG baseline data divided in an array for raw data and an array for each selected band. 
-%                       The amount of arrays would depend on user selection. Each arra has a shape as [Channels X Timepoints X Trials].
+%                       The amount of arrays would depend on user selection. Each array has a shape as [Channels X Timepoints X Trials].
 %   emg_thinking    :   Struct with the filtered EMG thinking data divided in an array for raw data and an array for each selected band. 
-%                       The amount of arrays would depend on user selection. Each arra has a shape as [Channels X Timepoints X Trials].
+%                       The amount of arrays would depend on user selection. Each array has a shape as [Channels X Timepoints X Trials].
 %   emg_baseline    :   Struct with the filtered EMG baseline data divided in an array for raw data and an array for each selected band. 
-%                       The amount of arrays would depend on user selection. Each arra has a shape as [Channels X Timepoints X Trials].
+%                       The amount of arrays would depend on user selection. Each array has a shape as [Channels X Timepoints X Trials].
 
 %Filtering Parameters
 rp = 3; % Passband ripple
