@@ -1,5 +1,5 @@
 function [eeg_thinking, eeg_baseline, eog_thinking, eog_baseline, emg_thinking, emg_baseline] = CLISLAB_EEG_common_average_reference(eeg_thinking, eeg_baseline, eog_thinking, eog_baseline, emg_thinking, emg_baseline,selectSource)
-% CLISLAB_EEG_COMMON_AVERAGE Calculates the common average reference.
+% CLISLAB_EEG_COMMON_AVERAGE_REFERENCE Calculates the common average reference.
 % INPUTS:
 %   eeg_thinking    :   Struct with the EEG thinking data. [Channels X Timepoints X Trials].
 %   eeg_baseline    :   Struct with the EEG baseline data. [Channels X Timepoints X Trials].
