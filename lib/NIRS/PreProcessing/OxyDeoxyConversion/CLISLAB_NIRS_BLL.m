@@ -1,4 +1,14 @@
 function [od_thinking,od_baseline] = CLISLAB_NIRS_BLL(wl_thinking, wl_baseline,fs,baselineReference)
+% CLISLAB_NIRS_BLL Calculates 
+% INPUTS:
+%   wl_thinking         :   Array containing the thinking data. [Channels X Timepoints X Trials].
+%   wl_baseline         :   Array containing the baseline data. [Channels X Timepoints X Trials].
+%   fs                  :   Sampling rate value.
+%   baseline_reference  :   String with the name of the baseline reference selection. Selected by user.
+%
+% OUTPUTS:
+%   od_thinking         :   Array with the processed thinking data with shape as [Channels X Timepoints X Trials].
+%   od_baseline         :   Array with the processed baseline data with shape as [Channels X Timepoints X Trials].
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                                      %
