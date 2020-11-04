@@ -1,6 +1,11 @@
 function [tempFeature] = eeg_Online_ExtractFeatures_Range_UpperMargin(Data, fs, passbandInterval)
-% Wu and AJG: range features were delivering suspectful high accuracies.
-% Parameter deffinition for range creation was wrong. Feature functions are corrected.
+% EEG_ONLINE_EXTRACTFEATURES_RANGE_UPPERMARGIN Calculates the 95th percentile.
+% INPUTS:
+%   Data              : Channels X Timepoints X Trials; Separated for eeg, emg, eog
+%   fs                : Sampling rate in Hz
+%   passbandInterval  : Boundaries for the bandpass filters (Delta, Theta, Alpha, ...)
+% OUTPUTS:
+%   tempFeature  : Value of the correspondant feature.
 
 % Parameters for generating ranges
 windowLength	=   (size(Data,2)/fs)/8; %Half the length of the time
