@@ -1,5 +1,26 @@
 function [eeg_thinking, eeg_baseline, eog_thinking, eog_baseline, emg_thinking, emg_baseline] = baseline_correction(eeg_thinking, eeg_baseline, eog_thinking, eog_baseline, emg_thinking, emg_baseline,selectSource)
-%% Baseline Correction
+% CLISLAB_EEG_BASELINE_CORRECTION Calculates the baseline correction.
+% INPUTS:
+%   eeg_thinking    :   Struct with the EEG thinking data. [Channels X Timepoints X Trials].
+%   eeg_baseline    :   Struct with the EEG baseline data. [Channels X Timepoints X Trials].
+%   eog_thinking    :   Struct with the EOG thinking data. [Channels X Timepoints X Trials].
+%   eog_baseline    :   Struct with the EOG baseline data. [Channels X Timepoints X Trials].
+%   emg_thinking    :   Struct with the EMG thinking data. [Channels X Timepoints X Trials].
+%   emg_baseline    :   Struct with the EMG baseline data. [Channels X Timepoints X Trials].
+%   selectSource    :   Logical array with the selected sources. [EEG EOG EMG].
+% OUTPUTS:
+%   eeg_thinking    :   Struct with the filtered EEG thinking data divided in an array for raw data and an array for each selected band. 
+%                       The amount of arrays would depend on user selection. Each arra has a shape as [Channels X Timepoints X Trials].
+%   eeg_baseline    :   Struct with the filtered EEG baseline data divided in an array for raw data and an array for each selected band. 
+%                       The amount of arrays would depend on user selection. Each arra has a shape as [Channels X Timepoints X Trials].
+%   eog_thinking    :   Struct with the filtered EOG thinking data divided in an array for raw data and an array for each selected band. 
+%                       The amount of arrays would depend on user selection. Each arra has a shape as [Channels X Timepoints X Trials].
+%   eog_baseline    :   Struct with the filtered EOG baseline data divided in an array for raw data and an array for each selected band. 
+%                       The amount of arrays would depend on user selection. Each arra has a shape as [Channels X Timepoints X Trials].
+%   emg_thinking    :   Struct with the filtered EMG thinking data divided in an array for raw data and an array for each selected band. 
+%                       The amount of arrays would depend on user selection. Each arra has a shape as [Channels X Timepoints X Trials].
+%   emg_baseline    :   Struct with the filtered EMG baseline data divided in an array for raw data and an array for each selected band. 
+%                       The amount of arrays would depend on user selection. Each arra has a shape as [Channels X Timepoints X Trials].%% Baseline Correction
 
 for k=1:size(eeg_thinking.wideband,1)
     %Baseline correcting EEG
