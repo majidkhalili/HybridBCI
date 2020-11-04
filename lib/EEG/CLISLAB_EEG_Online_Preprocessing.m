@@ -8,7 +8,7 @@ function [preprocessedBaselineData,preprocessedThinkingData] = CLISLAB_EEG_Onlin
 %   fs              :   Sampling rate value.
 %   filter_type     :   String with the name of the filter to be applied. Selected by user.
 %   interprocess    :   Cell array containing the name of the processing functions to be applied. Slelected by user.
-%   selectSource    :   Logical array with the selected sources. [EEG EMG EOG].
+%   selectSource    :   Logical array with the selected sources. [EEG EOG EMG].
 %   frequencyBands  :   Struct with band's boundaries and a logical which indicates if the band has been selected by the user or not.
 %
 % OUTPUTS:
