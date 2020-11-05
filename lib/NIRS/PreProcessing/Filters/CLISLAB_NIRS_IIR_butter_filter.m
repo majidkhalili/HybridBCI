@@ -1,40 +1,32 @@
 function [baseline,thinking] = CLISLAB_NIRS_IIR_butter_filter(inputSignalBaseline,inputSignalThinking,fs,filteringParam)
-%UNTITLED Butterworth filtering the input signal 
-%   Please specify the mode
-% mode = 'low'
-% mode = 'high'
-% mode = 'bandpass'
-% mode = 'stop'
-% fs : sample frequency [Hz]
-% The filtering will have a passband ripple of no more than Rp dB and a stopband attenuation of at least Rs dB. Wp and Ws are
-% the passband and stopband edge frequencies, in Hz.
-%     (where 1 corresponds to pi radians/sample). For example,
-%         Lowpass:    Wp = 10,      Ws = 20
-%         Highpass:   Wp = 20,      Ws = 10
-%         Bandpass:   Wp = [20 70], Ws = [10 80]
-%         Bandstop:   Wp = [10 80], Ws = [20  70]
-
-
-
-
-%WpNormalized = filteringParam.passingHertz*2/fs;
-
+% CLISLAB_NIRS_IIR_BUTTER_FILTER Calculates the filtered signal using IIR Butterworth filter.
+% INPUTS:
+%   inputSignalBaseline  :  Struct with the baseline signals to be filtered. The struct is divided in 3 structs: HbO, HbR and HbT.
+%                           Some of these structs could not appear depending on user selection. 
+%                             - HbO     : Struct with a shape as [Channels X Timepoints X Trials]. 
+%                             - HbR     : Struct with a shape as [Channels X Timepoints X Trials]. 
+%                             - HbT     : Struct with a shape as [Channels X Timepoints X Trials].
+%   inputSignalThinking  :  Struct with the thinking signals to be filtered. The struct is divided in 3 structs: HbO, HbR and HbT.
+%                           Some of these structs could not appear depending on user selection. 
+%                             - HbO     : Struct with a shape as [Channels X Timepoints X Trials]. 
+%                             - HbR     : Struct with a shape as [Channels X Timepoints X Trials]. 
+%                             - HbT     : Struct with a shape as [Channels X Timepoints X Trials].
+%   fs                   :  Sampling rate value.
+%   filteringParam       :  Array with band's boundaries.
+%      
+% OUTPUTS:
+%   feature  : Struct with the value of the correspondant feature. The struct is divided in 2 structs: featureLabels and features.
+%               - featureLabels : String array with the name of the feature and the correspondant source with a shape as [(3 X Channels)].
+%               - features      : Array with the feature values with shape [Trials X (3 X Channels)].
 
 WpNormalized = [filteringParam(1)*2/fs,filteringParam(2)*2/fs];
 
-%WsNormalized = filteringParam.stoppingHertz*2/fs;
-
-%Stopband edge frequencies are automatically calculate from the bandpass
-%edges as follows 
-
 WsNormalized = [WpNormalized(1)/2 ,  WpNormalized(2)*2];
 
-
-%Rp = filteringParam.ripplePassBand; 
 Rp = 1; %[db]
-%Rs = filteringParam.rippleStopBand;
+
 Rs = 10; %[db]
-%mode = filteringParam.mode;
+
 mode = 'bandpass';
 
 [N, Wn] = buttord(WpNormalized, WsNormalized, Rp, Rs);
@@ -59,3 +51,4 @@ baseline.hbr = filteredSignal.baselineHbr;
 thinking.hbo = filteredSignal.thinkingHbo;
 thinking.hbr = filteredSignal.thinkingHbr;
 
+end
