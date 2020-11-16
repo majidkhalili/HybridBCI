@@ -66,12 +66,20 @@ end
 end
 
 function pv=ChiTest(obs)
+% REFERENCE:
+% Pearson, K. (1900) On the Criterion That a Given System of Deviations from the Probable in the Case of a Correlated System 
+% of Variables Is Such That It Can Be Reasonably Supposed to Have Arisen from Random Sampling. 
+% Philosophical Magazine Series 5, 50, 157-175.
+% http://dx.doi.org/10.1080/14786440009463897
+
 % The input 'obs' is a contingency matrix of the form p samples * k classes
 % with the observed frequencies of each sample in each class.
 % The output 'pv' is the p-value for chi-squared homogeneity test if the test
 % (strong) recommendations are fulfilled and -1 otherwise.
+
 % Details of the test can be found, for example, in:
-% Devore J.L., Berk K.N. (2012) Goodness-of-Fit Tests and Categorical Data Analysis. In: Modern Mathematical Statistics with Applications. Springer Texts in Statistics. Springer, New York, NY
+% Devore J.L., Berk K.N. (2012) Goodness-of-Fit Tests and Categorical Data Analysis. 
+% In: Modern Mathematical Statistics with Applications. Springer Texts in Statistics. Springer, New York, NY
 
 [p,k]=size(obs);
 classes=sum(obs,1);
